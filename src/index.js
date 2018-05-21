@@ -18,12 +18,8 @@ const config = {
 };
 firebase.initializeApp(config);
 
-console.log(window.apiKey)
-
-console.log(window.shopOrigin)
-
-const apiKey = 'a7d677447e3c32694d5de163429820fb';
-const shopOrigin = 'https://gerardkabre.myshopify.com';
+const apiKey = window.apiKey;
+const shopOrigin = window.shopOrigin;
 
 ReactDOM.render(
   <AppProvider apiKey={apiKey} shopOrigin={shopOrigin}>
