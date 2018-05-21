@@ -25,8 +25,11 @@ class Settings extends Component {
     tableRows: [['', 'No products selected', '']]
   };
 
-  generateRows = () => {
-    if (this.state.selectedProducts) {
+  generateRows = clear => {
+    if (clear) {
+      return this.setState({ tableRows: [['', 'No products selected', '']] });
+    }
+    if (this.state.selectedProducts.length > 0) {
       let tableProductsArray = [];
       this.state.selectedProducts.map(product => {
         tableProductsArray.push([
@@ -83,17 +86,18 @@ class Settings extends Component {
                 <Button
                   fullWidth
                   primary
-                  onClick={() => this.setState({ open: true })}
+                  onClick={() => console.log(this.state.selectedProducts)}
                 >
                   Add to the queue
                 </Button>
-                <div style={{ margin: 10 , textAlign: 'center'}}>
-                or
-                </div>
+                <div style={{ margin: 10, textAlign: 'center' }}>or</div>
                 <Button
                   fullWidth
                   destructive
-                  onClick={() => this.setState({ selectedProducts: [] })}
+                  onClick={() => {
+                    this.setState({ selectedProducts: [] });
+                    this.generateRows(true);
+                  }}
                 >
                   Unselect prodcuts
                 </Button>
