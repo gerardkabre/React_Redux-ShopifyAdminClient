@@ -30,8 +30,8 @@ class Settings extends Component {
       let tableProductsArray = [];
       this.state.selectedProducts.map(product => {
         tableProductsArray.push([
-          product.title,
           product.id,
+          product.title,
           product.product_type
         ]);
       });
@@ -46,32 +46,11 @@ class Settings extends Component {
           <Layout.AnnotatedSection
             title="Youtube account Connection"
             description="Connect the Youtube account to which you want to upload the videos."
-          >
-            <AccountConnection
-              accountName={this.state.accountName}
-              connected={this.state.connected}
-              title={this.state.accountName}
-              action={{
-                content: 'Connect',
-                onAction: () => this.setState({ connected: true })
-              }}
-              details={
-                this.state.connected
-                  ? 'Your account is correctly connected.'
-                  : 'You need to connect your youtube account to upload the videos.'
-              }
-            />
-          </Layout.AnnotatedSection>
+          />
           <Layout.AnnotatedSection
             title="Product selection"
             description="Select from which products do you want to create the videos."
           >
-            <ButtonGroup>
-              <Button onClick={() => this.setState({ open: true })}>
-                Select products
-              </Button>
-              <Button primary>Save</Button>
-            </ButtonGroup>
             <ResourcePicker
               products
               allowMultiple
@@ -90,10 +69,36 @@ class Settings extends Component {
             <Card>
               <DataTable
                 columnContentTypes={['number', 'text', 'text']}
-                headings={['ID', 'Product', 'Something']}
+                headings={['ID', 'Product', 'Type']}
                 rows={this.state.tableRows}
               />
             </Card>
+            <div style={{ margin: 10 }} />
+            {this.state.selectedProducts.length <= 0 ? (
+              <Button fullWidth onClick={() => this.setState({ open: true })}>
+                Select products
+              </Button>
+            ) : (
+              <div>
+                <Button
+                  fullWidth
+                  primary
+                  onClick={() => this.setState({ open: true })}
+                >
+                  Add to the queue
+                </Button>
+                <div style={{ margin: 10 , textAlign: 'center'}}>
+                or
+                </div>
+                <Button
+                  fullWidth
+                  destructive
+                  onClick={() => this.setState({ selectedProducts: [] })}
+                >
+                  Unselect prodcuts
+                </Button>
+              </div>
+            )}
           </Layout.AnnotatedSection>
         </Layout>
       </Page>
